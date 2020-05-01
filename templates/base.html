@@ -3,8 +3,161 @@
 <html lang = "en">
 <head>
     <meta charset = "UTF-8">
+    <style type = "text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel = "stylesheet" href = "{% static "style1.css" %}">
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        body {
+            background-color: #eeeeee;
+            color: #4e4544;
+            font: normal 16px sans-serif;
+        }
+
+        /* Page Layout */
+
+        .container {
+            max-width: 60%;
+            background-color: #ffffff;
+            margin: 0 auto;
+            padding: 0 60px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            color: rebeccapurple;
+            padding: 20px 0;
+            margin-bottom: 60px;
+            display: flex;
+            /*justify-content: center;*/
+
+        }
+
+        header h1 {
+            margin: 0 auto;
+        }
+
+        .row {
+            display: table-row;
+            padding: 10px 10px 10px 10px;
+        }
+
+
+        .row .product {
+            display: table-cell;
+            color: #777777;
+            border: 3px solid aqua;
+            border-radius: 10px;
+            width: 50%;
+            height: 50%;
+        }
+
+        .product img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .row .product p {
+            width: 100%;
+        }
+
+        .footer {
+            color: #ef5350;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            color: #777777;
+            font-size: 12px;
+            padding: 10px;
+        }
+
+
+        .single_product {
+            outline-width: 6px;
+            outline-style: dotted;
+            outline-color: rgba(192, 75, 235, 0.65);
+            outline-offset: 5px;
+            padding-bottom: 15%;
+            margin-bottom: 40px;
+
+        }
+
+
+        .single_product img {
+            max-height: 40%;
+            max-width: 40%;
+            float: left;
+            margin: 7px 7px 7px 0
+
+        }
+
+        .small {
+            font-size: 10px;
+            float: right;
+        }
+
+        button {
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            line-height: 20px;
+            padding: 8px;
+            border-radius: 25px;
+            font-family: Georgia, serif;
+            font-weight: normal;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+            background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 62%, rgb(20, 78, 117) 100%);
+            border: 2px solid rgb(28, 110, 164);
+            display: inline-block;
+        }
+
+        button:hover {
+            background: #1C6EA4;
+        }
+
+        button:active {
+            background: #144E75;
+        }
+
+
+        .form {
+            outline-width: 6px;
+            outline-style: dotted;
+            outline-color: rgba(192, 75, 235, 0.65);
+            outline-offset: 5px;
+            padding-bottom: 15%;
+            margin-bottom: 40px;
+
+        }
+
+        .form p {
+            text-align: center;
+        }
+
+        .form table {
+            margin: auto;
+        }
+
+        .form span {
+            margin-left: 50%;
+        }
+    </style>
+    {#    <link rel = "stylesheet" href = "{% static "style1.css" %}">#}
     <title>{% block title %}StarShop{% endblock %}</title>
 </head>
 <body>
