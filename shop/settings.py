@@ -25,7 +25,8 @@ SECRET_KEY = 'j)ua8xprpk@%rhi_@_n*5b^blj_c353*i=k#fm6xh)hy%&ap5u'
 DEBUG = True
 # DEBUG = False
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '127.0.0.1',
+    'https://starshop25.herokuapp.com/'
 ]
 
 # Application definition
