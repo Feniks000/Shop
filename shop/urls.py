@@ -23,9 +23,8 @@ urlpatterns = [
     path('home/', include('showcase.urls')),
     path('admin/', admin.site.urls),
 ]
-urlpatterns += [path('accounts/', include('django.contrib.auth.urls')),]
-urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)),]
+urlpatterns += [path('accounts/', include('django.contrib.auth.urls')), ]
+urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)), ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=(settings.STATIC_ROOT,))
-
