@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+
+    <link rel = "stylesheet" href = "{% static "style1.css" %}">
+    <title>{% block title %}StarShop{% endblock %}</title>
+</head>
+<body>
+<div class = "container">
+    <header>{% block header %}
+        <h1>
+            StarShop
+        </h1>
+        <div class = "links">
+            {% block links %}
+                <p><a href = "/">Home</a></p>
+
+                {% if user.is_authenticated %}
+                    <p>User: {{ user.get_username }}</p>
+                    <p><a href = "{% url 'logout' %}?next={{ request.path }}">Logout</a></p>
+                {% else %}
+                    <p><a href = "{% url 'login' %}?next={{ request.path }}">Login</a></p>
+                {% endif %}
+
+            {% endblock %}
+        </div>
+    {% endblock %}</header>
+    <div class = "main">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class = "footer">
+        <h3>Programmed: Feniks</h3>
+        <p>If you find errors, write to me: gtgtr3000@gmail.com</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+    {% for i, star in stars %}
+        {% if i == 0 %}
+            <div class = "row">
+        {% endif %}
+    <div class = "product">
+        <a href = "{{ star.id }}">
+            <h2>{{ star.name }}</h2>
+            <img src = "{{ MEDIA_URL }}{{ star.img }}" alt = "">
+            <p>Цена: {{ star.cost }}&#8381;</p>
+            <p>Тип: {{ star.stype }}</p>
+            <p>Позиция: {{ star.spos }}</p>
+        </a>
+    </div>
+
+    {% if i == 1 %}
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}
