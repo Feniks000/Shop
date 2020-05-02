@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.template import RequestContext
 from .models import Star
 
 
@@ -28,3 +29,11 @@ def buy(request):
         "star": obj
     }
     return render(request, 'showcase/buy.html', data)
+
+
+def e_handler404(request, exception):
+    return render(request, 'errors/error404.html')
+
+
+def e_handler500(request):
+    return render(request, 'errors/error500.html')
