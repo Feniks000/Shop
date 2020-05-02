@@ -1,5 +1,5 @@
 {% extends "../base.html" %}
-
+{% load static %}
 {% block content %}
 
     {% for i, star in stars %}
@@ -9,7 +9,7 @@
     <div class = "product">
         <a href = "{{ star.id }}">
             <h2>{{ star.name }}</h2>
-            <img src = "{{ MEDIA_URL }}{{ star.img }}" alt = "">
+            <img src = "{% static star.img %}" alt = "">
             <p>Цена: {{ star.cost }}&#8381;</p>
             <p>Тип: {{ star.stype }}</p>
             <p>Позиция: {{ star.spos }}</p>
