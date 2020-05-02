@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
+from django.views.defaults import server_error, page_not_found, permission_denied
+from showcase.views import e_handler404, e_handler500
 
 urlpatterns = [
     path('home/', include('showcase.urls')),
@@ -25,6 +27,10 @@ urlpatterns = [
 ]
 urlpatterns += [path('accounts/', include('django.contrib.auth.urls')), ]
 urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)), ]
+
+# handler403 = curry(permission_denied, template_name='errs/403.html')
+handler404 = e_handler404
+handler500 = e_handler500
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_STORAGE)
