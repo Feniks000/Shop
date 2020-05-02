@@ -19,11 +19,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
 from django.views.defaults import server_error, page_not_found, permission_denied
-from showcase.views import e_handler404, e_handler500
+from showcase.views import e_handler404, e_handler500, about
 
 urlpatterns = [
     path('home/', include('showcase.urls')),
     path('admin/', admin.site.urls),
+    path('about/', about)
 ]
 urlpatterns += [path('accounts/', include('django.contrib.auth.urls')), ]
 urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)), ]
