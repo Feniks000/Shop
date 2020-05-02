@@ -37,3 +37,7 @@ def e_handler404(request, exception):
 
 def e_handler500(request):
     return render(request, 'errors/error500.html')
+
+
+def about(request):
+    return render(request, 'about.html')
