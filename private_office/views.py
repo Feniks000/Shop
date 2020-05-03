@@ -11,6 +11,7 @@ def profile(request):
 
 @csrf_exempt
 def get_massage(request):
+    secret = 'xlob6eQOzV74hIYRTZFec5Ov'
     if request.POST:
         print(request.POST.get('withdraw_amount'))
         print(request.POST.get('datetime'))
@@ -19,5 +20,6 @@ def get_massage(request):
         print(request.POST.get('firstname'))
         print(request.POST.get('fathersname'))
         print(request.POST.get('sha1_hash'))
+
         return HttpResponse()
     raise Http404()
