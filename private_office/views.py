@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 # Create your views here.
@@ -9,11 +9,13 @@ def profile(request):
 
 
 def get_massage(request):
-    print(request.GET.get('withdraw_amount'))
-    print(request.GET.get('datetime'))
-    print(request.GET.get('label'))
-    print(request.GET.get('lastname'))
-    print(request.GET.get('firstname'))
-    print(request.GET.get('fathersname'))
-    print(request.GET.get('sha1_hash'))
-    return HttpResponse()
+    if request.POST:
+        print(request.POST.get('withdraw_amount'))
+        print(request.POST.get('datetime'))
+        print(request.POST.get('label'))
+        print(request.POST.get('lastname'))
+        print(request.POST.get('firstname'))
+        print(request.POST.get('fathersname'))
+        print(request.POST.get('sha1_hash'))
+        return HttpResponse()
+    raise Http404()
