@@ -1,15 +1,4 @@
 {% extends "base.html" %}
-{% block links %}
-    <p><a href = "/">Home</a></p>
-
-    {% if user.is_authenticated %}
-        <p>User: {{ user.get_username }}</p>
-        <p><a href = "{% url 'logout' %}?next=/">Logout</a></p>
-    {% else %}
-        <p><a href = "{% url 'login' %}?next=/">Login</a></p>
-    {% endif %}
-
-{% endblock %}
 
 {% block content %}
     <div class = "buy">
@@ -24,24 +13,17 @@
               action = "https://money.yandex.ru/quickpay/confirm.xml"
               style = "float: right; margin-top: 5%">
             <input type = "hidden" name = "receiver" value = "4100112670879333">
-            <input type = "hidden"
-                   name = "formcomment"
-                   value = "Покупка звезды: {{ star.name }}">
-            <input type = "hidden"
-                   name = "short-dest"
-                   value = "Покупка звезды: {{ star.name }}">
-            <input type = "hidden" name = "label" value = "{{ star.index }}">
+            <input type = "hidden" name = "formcomment" value = "Покупка звезды: {{ star.name }}">
+            <input type = "hidden" name = "short-dest" value = "Покупка звезды: {{ star.name }}">
+            <input type = "hidden" name = "label" value = "{{ star.id }}&{{ user.id }}">
             <input type = "hidden" name = "quickpay-form" value = "donate">
-            <input type = "hidden" name = "targets" value = "транзакция {{ star.id }}">
+            <input type = "hidden" name = "targets" value = "Покупка звезды: {{ star.name }}">
             <input type = "hidden" name = "sum" value = "{{ star.cost }}" data-type = "number">
             <input type = "hidden" name = "need-fio" value = "false">
             <input type = "hidden" name = "need-email" value = "false">
             <input type = "hidden" name = "need-phone" value = "false">
             <input type = "hidden" name = "need-address" value = "false">
-            <p><label><input type = "radio" name = "paymentType" value = "PC">Яндекс.Деньгами</label>
-            </p>
-            <p><label><input type = "radio" name = "paymentType" value = "AC">Банковской
-                                                                              картой</label></p>
+            <input type = "hidden" name = "paymentType" value = "AC">
             <button type = "submit">Купить</button>
         </form>
 

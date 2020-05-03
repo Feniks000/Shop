@@ -24,7 +24,8 @@ from showcase.views import e_handler404, e_handler500, about
 urlpatterns = [
     path('home/', include('showcase.urls')),
     path('admin/', admin.site.urls),
-    path('about/', about)
+    path('about/', about),
+    path('profile/', include('private_office.urls'))
 ]
 urlpatterns += [path('accounts/', include('django.contrib.auth.urls')), ]
 urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)), ]
