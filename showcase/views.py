@@ -9,7 +9,7 @@ from .models import Star
 def index(request):
     all_stars = enumerate(Star.objects.all())
     data = {
-        "stars": list(map(lambda x: (x[0] % 2, x[1]), all_stars))
+        "stars": list(map(lambda x: (x[0] % 2, x[1]), all_stars)),
     }
     return render(request, 'showcase/index.html', data)
 
@@ -19,15 +19,12 @@ def show_product(request, star_id):
     data = {
         "star": obj,
     }
-    # return HttpResponse(f'<img src="{MEDIA_URL}{obj.img()}">')
     return render(request, 'showcase/product.html', data)
 
 
 def buy(request):
     obj = get_object_or_404(Star, id=request.GET.get('id'))
-    data = {
-        "star": obj
-    }
+    data = {"star": obj}
     return render(request, 'showcase/buy.html', data)
 
 
@@ -41,3 +38,5 @@ def e_handler500(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
