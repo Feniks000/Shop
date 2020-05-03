@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -8,6 +9,7 @@ def profile(request):
     return render(request, "profile/profile.html")
 
 
+@csrf_exempt
 def get_massage(request):
     if request.POST:
         print(request.POST.get('withdraw_amount'))
