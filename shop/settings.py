@@ -144,7 +144,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_MEDIA_URL = AWS_URL
 
 MEDIA_URL = AWS_MEDIA_URL
-
+STATIC_URL = AWS_URL
 # DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
