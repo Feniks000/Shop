@@ -139,12 +139,19 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_URL = os.environ.get('AWS_URL')
 
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_LOCATION = 'static'
 
 MEDIA_URL = AWS_URL + 'media/'
 STATIC_URL = AWS_URL + 'static/'
 MEDIA_ROOT = AWS_URL + 'media/'
 STATIC_ROOT = AWS_URL + 'static/'
+AWS_DEFAULT_ACL = None
+
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
