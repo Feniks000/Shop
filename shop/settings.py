@@ -22,8 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j)ua8xprpk@%rhi_@_n*5b^blj_c353*i=k#fm6xh)hy%&ap5u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'starshop25.herokuapp.com',
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # loaded apps
     'showcase.apps.ShowcaseConfig',
     'private_office.apps.PrivateOfficeConfig',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -83,11 +84,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbcqnbc4vcq78r',
-        'USER': 'kgvbecpbwvbcjl',
-        'PASSWORD': '95f5802188968b0e3b6bf69b6c633c7b6b6a20ef3b18c60cf7a5a31b02ab4995',
-        'HOST': 'ec2-54-247-118-139.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
 
     }
 }
@@ -126,15 +127,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_URL = os.environ.get('AWS_URL')
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_MEDIA_URL = AWS_URL
+
+MEDIA_URL = AWS_MEDIA_URL
+
+# DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
+
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if DEBUG:
     LOGGING = {
         'version': 1,
