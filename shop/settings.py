@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # loaded apps
     'showcase.apps.ShowcaseConfig',
     'private_office.apps.PrivateOfficeConfig',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'shop.storage_backends.MediaStorage',
+    'shop.storage_backends.StaticStorage'
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -84,11 +86,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT'),
+        'NAME': 'dbcqnbc4vcq78r',
+        'USER': 'kgvbecpbwvbcjl',
+        'PASSWORD': '95f5802188968b0e3b6bf69b6c633c7b6b6a20ef3b18c60cf7a5a31b02ab4995',
+        'HOST': 'ec2-54-247-118-139.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
 
     }
 }
@@ -130,20 +132,19 @@ USE_TZ = True
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_URL = os.environ.get('AWS_URL')
+AWS_ACCESS_KEY_ID = 'AKIAUQJGDX7YJXFBSUZM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'starshop25'
+AWS_URL = 'https://starshop25.s3.eu-north-1.amazonaws.com/'
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_LOCATION = 'static'
 
 MEDIA_URL = AWS_URL + 'media/'
@@ -152,9 +153,10 @@ MEDIA_ROOT = AWS_URL + 'media/'
 STATIC_ROOT = AWS_URL + 'static/'
 AWS_DEFAULT_ACL = None
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
+STATICFILES_STORAGE = 'storage_backends.StaticStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # MEDIA_URL = '/media/'
