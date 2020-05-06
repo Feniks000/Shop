@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'showcase.apps.ShowcaseConfig',
     'private_office.apps.PrivateOfficeConfig',
     'storages',
+    'shop'
 ]
 
 MIDDLEWARE = [
