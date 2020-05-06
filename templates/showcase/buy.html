@@ -10,7 +10,6 @@
         </h3>
         {#        ПОКУПКА!!!#}
         <form method = "POST"
-                {% csrf_token %}
               action = "https://money.yandex.ru/quickpay/confirm.xml"
               style = "float: right; margin-top: 5%">
             <input type = "hidden" name = "receiver" value = "4100112670879333">
