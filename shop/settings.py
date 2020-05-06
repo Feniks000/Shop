@@ -153,10 +153,10 @@ MEDIA_ROOT = AWS_URL + 'media/'
 STATIC_ROOT = AWS_URL + 'static/'
 AWS_DEFAULT_ACL = None
 
-STATICFILES_STORAGE = 'storage_backends.StaticStorage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storage_backends.StaticStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # MEDIA_URL = '/media/'
