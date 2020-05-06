@@ -47,13 +47,12 @@ header h1 {
 }
 
 
-.row .product {
+.product {
     display: table-cell;
     color: #777777;
     border: 3px solid aqua;
     border-radius: 10px;
-    width: 50%;
-    height: 50%;
+    max-width: 50%;
 }
 
 .product img {
@@ -61,7 +60,7 @@ header h1 {
     max-height: 100%;
 }
 
-.row .product p {
+.product p {
     width: 100%;
 }
 
