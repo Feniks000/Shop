@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'showcase.apps.ShowcaseConfig',
     'private_office.apps.PrivateOfficeConfig',
     'storages',
-    'shop.storage_backends'
 ]
 
 MIDDLEWARE = [
@@ -152,9 +151,9 @@ MEDIA_ROOT = AWS_URL + 'media/'
 STATIC_ROOT = AWS_URL + 'static/'
 AWS_DEFAULT_ACL = None
 
-STATICFILES_STORAGE = 'storage_backends.StaticStorage'
+STATICFILES_STORAGE = 'shop.storage_backends.StaticStorage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'  # <-- here is where we reference it
+DEFAULT_FILE_STORAGE = 'shop.storage_backends.MediaStorage'  # <-- here is where we reference it
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
