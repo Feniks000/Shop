@@ -47,22 +47,25 @@ def registration(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
+        if User.objects.filter(username=username).exists():
+            context['error'] = 'Такое имя пользователя уже есть,<br>' \
+                               'пожалуйста, выберите другое.'
+        else:
+            if password == password2:
+                User.objects.create_user(username, email, password)
+                key = get_random_string(length=32)
+                EmailConfirmation.objects.create(user=User.objects.get(username=username),
+                                                 personal_link=key)
 
-        if password == password2:
-            User.objects.create_user(username, '', password)
-            key = get_random_string(length=32)
-            EmailConfirmation.objects.create(user=User.objects.get(username=username),
-                                             personal_link=key)
-
-            context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
-                                 'было отправлено на указанную почту.'
-            link = settings.VALIDATION_LINK + '/' + email + '/' + key
-            status = send_mail('Подтверждение аккаунта',
-                               f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
-                               'noreply@starshop25.com',
-                               [email, ],
-                               fail_silently=False)
-            print(status)
+                context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
+                                     'было отправлено на указанную почту.'
+                link = settings.VALIDATION_LINK + '/' + email + '/' + key
+                status = send_mail('Подтверждение аккаунта',
+                                   f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
+                                   'noreply@starshop25.com',
+                                   [email, ],
+                                   fail_silently=False)
+                print(status)
 
     return render(request, 'private_office/registration.html', context)
 

@@ -150,3 +150,5 @@ if DEBUG:
             },
         },
     }
+
+EMAIL_HOST = ALLOWED_HOSTS[1]

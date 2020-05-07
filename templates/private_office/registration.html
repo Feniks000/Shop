@@ -6,6 +6,10 @@
     {% if message %}
         <h3>{{ message }}</h3>
     {% endif %}
+
+    {% if error %}
+        <h3>{{ error }}</h3>
+    {% endif %}
     <form method = "post">
         {% csrf_token %}
         <table>
