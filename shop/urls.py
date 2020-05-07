@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('about/', about, name="about"),
     path('accounts/', include('private_office.urls'), name="accounts"),
-    path('^accounts/login/$', LoginView.as_view(), name="login"),
+    # path('^accounts/login/$', LoginView.as_view(), name="login"),
 ]
 
 urlpatterns += [path('', RedirectView.as_view(url='/home/', permanent=True)), ]
