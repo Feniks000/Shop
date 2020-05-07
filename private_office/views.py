@@ -11,7 +11,7 @@ from django.utils.crypto import get_random_string
 
 from django.contrib.auth import password_validation
 from django.core.mail import send_mail
-
+from django.core.mail import *
 from shop import settings
 
 
@@ -60,6 +60,7 @@ def registration(request):
                 context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
                                      'было отправлено на указанную почту.'
                 link = settings.VALIDATION_LINK + '/' + email + '/' + key
+                
                 status = send_mail('Подтверждение аккаунта',
                                    f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
                                    'noreply@starshop25.com',
