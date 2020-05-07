@@ -3,17 +3,9 @@
 {% block title %}Вход{% endblock %}
 {% block content %}
     <div class = "form">
+
         {% if form.errors %}
             <p>Ваш логин и пароль не подходят. Пожалуйста, попробуйте ещё раз.</p>
-        {% endif %}
-
-        {% if next %}
-            {% if user.is_authenticated %}
-                <p>Ваш аккаунт не имеет доступа к этой странице.<br>
-                   Для продолжения войдите в аккаунт имеющий доступ к этой сранице.</p>
-            {% else %}
-                <p>Войдите, чтобы получить возможность купить что-то.</p>
-            {% endif %}
         {% endif %}
 
         <form method = "post" action = "{% url 'login' %}">

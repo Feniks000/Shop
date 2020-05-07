@@ -72,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shop.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -84,7 +83,6 @@ DATABASES = {
 
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -101,8 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Asia/Vladivostok'
 
@@ -111,7 +108,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 AWS_ACCESS_KEY_ID = 'AKIAUQJGDX7YJXFBSUZM'
 AWS_SECRET_ACCESS_KEY = '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'
@@ -132,7 +128,6 @@ AWS_DEFAULT_ACL = None
 
 STATICFILES_STORAGE = 'shop.storage_backends.StaticStorage'
 DEFAULT_FILE_STORAGE = 'shop.storage_backends.MediaStorage'
-
 
 LOGIN_REDIRECT_URL = '/'
 

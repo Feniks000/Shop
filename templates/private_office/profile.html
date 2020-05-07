@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    <h1>Мой профиль</h1>
+
+    Имя пользователя: {{ user.username }} <br>
+    Email: {{ user.email }}
+{% endblock %}
