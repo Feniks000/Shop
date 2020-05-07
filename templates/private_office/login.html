@@ -13,11 +13,11 @@
             <table>
                 <tr>
                     <td><h4>Логин:</h4></td>
-                    <td>{{ form.username }}</td>
+                    <td><input type = "text" name = "username"></td>
                 </tr>
                 <tr>
                     <td><h4>Пароль:</h4></td>
-                    <td>{{ form.password }}</td>
+                    <td><input type = "password" name = "password"></td>
                 </tr>
             </table>
             <span>
@@ -27,7 +27,7 @@
                 </button>
                     </a>
             </span>
-            <input type = "hidden" name = "next" value = "{{ next }}"/>
+{#            <input type = "hidden" name = "next" value = "{{ next }}"/>#}
         </form>
 
         {# Assumes you setup the password_reset view in your URLconf #}
