@@ -7,5 +7,5 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
     path('messages_afterbuy', views.get_massage),
     path('register', views.registration, name="registration"),
-    path('validation/<str: email>/<str: key>', views.validation)
+    path('validation/<str:email>/<str:key>', views.validation)
 ]
