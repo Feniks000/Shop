@@ -62,7 +62,7 @@ def registration(request):
                 link = settings.VALIDATION_LINK + '/' + email + '/' + key
                 status = send_mail('Подтверждение аккаунта',
                                    f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
-                                   'noreply@starshop25.com',
+                                   settings.EMAIL_HOST_USER,
                                    [email, ],
                                    fail_silently=False)
                 print(status)
