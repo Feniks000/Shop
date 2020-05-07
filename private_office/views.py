@@ -60,12 +60,15 @@ def registration(request):
                 context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
                                      'было отправлено на указанную почту.'
                 link = settings.VALIDATION_LINK + '/' + email + '/' + key
-                
+                connection = get_connection()
+                connection.open()
                 status = send_mail('Подтверждение аккаунта',
                                    f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
                                    'noreply@starshop25.com',
                                    [email, ],
-                                   fail_silently=False)
+                                   fail_silently=False,
+                                   connection=connection)
+                connection.close()
                 print(status)
 
     return render(request, 'private_office/registration.html', context)
