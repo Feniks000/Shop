@@ -48,8 +48,7 @@ def registration(request):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
         if User.objects.filter(username=username).exists():
-            context['error'] = 'Такое имя пользователя уже есть,<br>' \
-                               'пожалуйста, выберите другое.'
+            context['error'] = 'Такое имя пользователя уже есть, пожалуйста, выберите другое.'
         else:
             if password == password2:
                 User.objects.create_user(username, email, password)
@@ -57,7 +56,7 @@ def registration(request):
                 EmailConfirmation.objects.create(user=User.objects.get(username=username),
                                                  personal_link=key)
 
-                context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
+                context['message'] = 'Письмо с ссылкой для подтверждения аккаунта ' \
                                      'было отправлено на указанную почту.'
                 link = settings.VALIDATION_LINK + '/' + email + '/' + key
                 status = send_mail('Подтверждение аккаунта',
