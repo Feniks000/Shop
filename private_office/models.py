@@ -12,6 +12,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=50, blank=True, null=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
+    confirmed = models.BooleanField(default=False)
 
 
 @receiver(post_save, sender=User)
@@ -24,3 +25,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+
+class EmailConfirmation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    personal_link = models.CharField(max_length=33, primary_key=True)

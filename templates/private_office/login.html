@@ -4,8 +4,8 @@
 {% block content %}
     <div class = "form">
 
-        {% if form.errors %}
-            <p>Ваш логин и пароль не подходят. Пожалуйста, попробуйте ещё раз.</p>
+        {% if errors %}
+            <p>Ваш логин и/или пароль не подходят. Пожалуйста, попробуйте ещё раз.</p>
         {% endif %}
 
         <form method = "post" action = "{% url 'login' %}">
@@ -27,7 +27,7 @@
                 </button>
                     </a>
             </span>
-{#            <input type = "hidden" name = "next" value = "{{ next }}"/>#}
+            {#            <input type = "hidden" name = "next" value = "{{ next }}"/>#}
         </form>
 
         {# Assumes you setup the password_reset view in your URLconf #}

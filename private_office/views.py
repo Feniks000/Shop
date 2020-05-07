@@ -1,10 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
-from django.shortcuts import render, redirect
 from django.urls import reverse
+
 from django.contrib.auth.models import User
+
+from .models import Profile, EmailConfirmation
+from django.utils.crypto import get_random_string
+
+from django.contrib.auth import password_validation
+from django.core.mail import send_mail
+
+from shop import settings
 
 
 # Create your views here.
@@ -33,6 +41,7 @@ def logout(request):
 
 
 def registration(request):
+    context = {}
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -40,10 +49,32 @@ def registration(request):
         password2 = request.POST.get('password2')
 
         if password == password2:
-            User.objects.create_user(username, email, password)
-            return redirect(reverse("login"))
+            User.objects.create_user(username, '', password)
+            key = get_random_string(length=32)
+            EmailConfirmation.objects.create(user=User.objects.get(username=username),
+                                             personal_link=key)
 
-    return render(request, 'private_office/registration.html')
+            context['message'] = 'Письмо с ссылкой для подтверждения аккаунта<br>' \
+                                 'было отправлено на указанную почту.'
+            link = settings.VALIDATION_LINK + '/' + email + '/' + key
+            status = send_mail('Подтверждение аккаунта',
+                               f'Для подтверждения аккаунта перейдите по этой ссылке: {link}',
+                               'noreply@starshop25.com',
+                               [email, ],
+                               fail_silently=False)
+            print(status)
+
+    return render(request, 'private_office/registration.html', context)
+
+
+def validation(request, key, email):
+    user = get_object_or_404(User,
+                             username=get_object_or_404(EmailConfirmation, personal_link=key).user)
+
+    if user.email == email:
+        return HttpResponse("Успех.")
+    else:
+        return HttpResponse("Провал")
 
 
 @csrf_exempt
