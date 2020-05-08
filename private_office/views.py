@@ -225,26 +225,5 @@ def get_massage(request):
                 )
                 return HttpResponse()
             else:
-                Order.objects.create(
-                    user=user,
-                    star=star,
-                    star_name=star.star_name,
-                    withdraw_amount=withdraw_amount,
-                    operation_id=operation_id,
-                    unaccepted=unaccepted,
-                    sha1_hash=sha1_hash,
-                    datetime=datetime,
-                    currency=currency,
-                    building=building,
-                    codepro=codepro,
-                    street=street,
-                    sender=sender,
-                    amount=amount,
-                    label=label,
-                    suite=suite,
-                    city=city,
-                    flat=flat,
-                    zip=zip,
-                )
-                return HttpResponse()
+                raise Http404()
     raise Http404()
