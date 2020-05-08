@@ -25,6 +25,7 @@ def show_product(request, star_id):
 def buy(request):
     obj = get_object_or_404(Star, id=request.GET.get('id'))
     data = {"star": obj}
+
     return render(request, 'showcase/buy.html', data)
 
 

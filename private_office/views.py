@@ -10,12 +10,13 @@ from django.contrib.auth import (authenticate,
                                  login as dj_login,
                                  logout as dj_logout)
 
-from .models import Profile, EmailConfirmation, PasswordResetKeys
+from .models import Profile, EmailConfirmation, PasswordResetKeys, Order
+from showcase.models import Star
 from django.utils.crypto import get_random_string
 
 from django.core.mail import send_mail
 from django.core.mail import *
-
+from hashlib import sha1
 from shop import settings
 
 
@@ -25,6 +26,10 @@ def profile(request):
         context = {}
         if not request.user.profile.confirmed:
             context['message'] = 'Упс, для начала подтвердите свой аккаунт.'
+        all_orders = enumerate(Order.objects.filter(user=request.user))
+        data = {
+            "orders": list(map(lambda x: (x[0] % 2, x[1]), all_orders)),
+        }
         return render(request, "private_office/profile.html")
     elif request.method == 'POST':
         pass
@@ -55,7 +60,6 @@ def registration(request):
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         fathersname = request.POST.get('fathersname')
-        address = request.POST.get('address')
 
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -63,8 +67,8 @@ def registration(request):
         password2 = request.POST.get('password2')
         if User.objects.filter(username=username).exists():
             context['error'] = 'Такое имя пользователя уже есть, пожалуйста, выберите другое.'
-        # elif (' ', '\t', '\n') in username:
-        #     context['error'] = 'Такое имя пользователя недопустимо, пожалуйста, выберите другое.'
+        elif User.objects.filter(email=email).exists():
+            context['error'] = 'Аккаунт с такой почтой уже существует!'
         else:
             if password == password2:
                 User.objects.create_user(username, email, password)
@@ -73,7 +77,6 @@ def registration(request):
                 user.profile.firstname = firstname
                 user.profile.lastname = lastname
                 user.profile.fathersname = fathersname
-                user.profile.address = address
 
                 key = get_random_string(length=32)
                 EmailConfirmation.objects.create(user=user,
@@ -125,7 +128,7 @@ def resetpassword(request):
                                  'было отправлено на указанную при регистрации почту.'
             # Я читал про взлом аккаунта если сервер шлет
             # ссылку на введеную почту, а не взятую у юзера
-            link = settings.VALIDATION_LINK + email + '/' + key
+            link = settings.RESETPASSWORD_LINK + email + '/' + key
             user.save()
 
             status = send_mail('Ссылка для',
@@ -154,7 +157,7 @@ def accept_resetpassword(request, email, key):
         if user.email == email:
             user.passwordresetkeys.delete()
             user.save()
-            context['message'] = 'Аккаунт успешно подтвержден.'
+            context['message'] = 'Пароль успешно изменен.'
             return render(request, 'private_office/resetpassword.html', context=context)
         else:
             raise Http404()
@@ -163,15 +166,62 @@ def accept_resetpassword(request, email, key):
 
 @csrf_exempt
 def get_massage(request):
-    secret = 'xlob6eQOzV74hIYRTZFec5Ov'
     if request.POST:
-        print(request.POST.get('withdraw_amount'))
-        print(request.POST.get('datetime'))
-        print(request.POST.get('label'))
-        print(request.POST.get('lastname'))
-        print(request.POST.get('firstname'))
-        print(request.POST.get('fathersname'))
-        print(request.POST.get('sha1_hash'))
-        # print(request.POST.get(''))
-        return HttpResponse()
+        try:
+            notification_type = request.POST.get('notification_type')
+            withdraw_amount = request.POST.get('withdraw_amount')  # need value
+            operation_id = request.POST.get('operation_id')
+            unaccepted = request.POST.get('unaccepted')
+            sha1_hash = request.POST.get('sha1_hash')
+            datetime = request.POST.get('datetime')
+            currency = request.POST.get('currency')
+            building = request.POST.get('building')
+            codepro = request.POST.get('codepro')
+            street = request.POST.get('street')
+            sender = request.POST.get('sender')
+            amount = request.POST.get('amount')
+            suite = request.POST.get('suite')
+            label = request.POST.get('label')
+            city = request.POST.get('city')
+            flat = request.POST.get('flat')
+            zip = request.POST.get('zip')
+
+            star_id, user_id = label.split('&')
+            user = User.objects.get(id=int(user_id))
+            star = Star.objects.get(id=int(star_id))
+            notification_secret = settings.SECRET_YA_KEY
+            my_hash = sha1(f'{notification_type}&'
+                           f'{operation_id}&{amount}&{currency}&'
+                           f'{datetime}&{sender}&{codepro}&'
+                           f'{notification_secret}&{label}'.encode()).hexdigest()
+
+        except Exception:
+            raise Exception("HANA OPLATE)))0)")
+            # raise Http404()
+        else:
+            if my_hash == sha1_hash:
+                Order.objects.create(
+                    user=user,
+                    star=star,
+                    star_name=star.star_name,
+                    withdraw_amount=withdraw_amount,
+                    operation_id=operation_id,
+                    unaccepted=unaccepted,
+                    sha1_hash=sha1_hash,
+                    datetime=datetime,
+                    currency=currency,
+                    building=building,
+                    codepro=codepro,
+                    street=street,
+                    sender=sender,
+                    amount=amount,
+                    label=label,
+                    suite=suite,
+                    city=city,
+                    flat=flat,
+                    zip=zip,
+                )
+                return HttpResponse()
+            else:
+                raise Http404()
     raise Http404()

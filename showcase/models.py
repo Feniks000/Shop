@@ -29,3 +29,5 @@ class Star(models.Model):
 
     def spos(self):
         return self.star_position
+
+
