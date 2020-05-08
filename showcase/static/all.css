@@ -44,6 +44,7 @@ header h1 {
 .row {
     display: table-row;
     padding: 10px 10px 10px 10px;
+    justify-content: space-between;
 }
 
 
