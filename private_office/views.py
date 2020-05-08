@@ -199,6 +199,8 @@ def get_massage(request):
             raise Exception("HANA OPLATE)))0)")
             # raise Http404()
         else:
+            print(my_hash)
+            print(sha1_hash)
             if my_hash == sha1_hash:
                 Order.objects.create(
                     user=user,
@@ -223,5 +225,26 @@ def get_massage(request):
                 )
                 return HttpResponse()
             else:
-                raise Http404()
+                Order.objects.create(
+                    user=user,
+                    star=star,
+                    star_name=star.star_name,
+                    withdraw_amount=withdraw_amount,
+                    operation_id=operation_id,
+                    unaccepted=unaccepted,
+                    sha1_hash=sha1_hash,
+                    datetime=datetime,
+                    currency=currency,
+                    building=building,
+                    codepro=codepro,
+                    street=street,
+                    sender=sender,
+                    amount=amount,
+                    label=label,
+                    suite=suite,
+                    city=city,
+                    flat=flat,
+                    zip=zip,
+                )
+                return HttpResponse()
     raise Http404()
