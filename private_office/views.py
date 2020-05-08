@@ -27,10 +27,8 @@ def profile(request):
         if not request.user.profile.confirmed:
             context['message'] = 'Упс, для начала подтвердите свой аккаунт.'
         all_orders = enumerate(Order.objects.filter(user=request.user))
-        data = {
-            "orders": list(map(lambda x: (x[0] % 2, x[1]), all_orders)),
-        }
-        return render(request, "private_office/profile.html")
+        context["orders"] = list(map(lambda x: (x[0] % 2, x[1]), all_orders))
+        return render(request, "private_office/profile.html", context)
     elif request.method == 'POST':
         pass
 
