@@ -11,19 +11,23 @@
 <div class = "container">
     <header>{% block header %}
         <a href = "/" style = "margin: 0 auto;"><h1>StarShop</h1></a>
-        <div class = "links">
-            {% block links %}
-                <p><a href = "/">Домашняя страница</a></p>
+        <nav>
+            <ul>
+                {% block links %}
+                    <li><p><a href = "/">Домашняя страница</a></p></li>
 
-                {% if user.is_authenticated %}
-                    <p><a href = "{% url 'profile' %}">Личный кабинет</a></p><p>
-                    <a href = "{% url 'logout' %}?next={{ request.path }}">Выйти</a></p>
-                {% else %}
-                    <p><a href = "{% url 'login' %}?next={{ request.path }}">Войти</a></p>
-                    <p><a href = "{% url 'registration' %}">Регистарция</a></p>
-                {% endif %}
-            {% endblock %}
-        </div>
+                    {% if user.is_authenticated %}
+                        <li><p><a href = "{% url 'profile' %}">Личный кабинет</a></p>
+                            <p></li>
+                        <li><a href = "{% url 'logout' %}?next={{ request.path }}">Выйти</a></p></li>
+                    {% else %}
+                        <li><p><a href = "{% url 'login' %}?next={{ request.path }}">Войти</a></p>
+                        </li>
+                        <li><p><a href = "{% url 'registration' %}">Регистарция</a></p></li>
+                    {% endif %}
+                {% endblock %}
+            </ul>
+        </nav>
     {% endblock %}</header>
     <div class = "main">
         {% block content %}
