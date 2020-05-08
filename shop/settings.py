@@ -109,8 +109,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-AWS_ACCESS_KEY_ID = 'AKIAUQJGDX7YJXFBSUZM'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'starshop25'
 AWS_URL = 'https://starshop25.s3.eu-north-1.amazonaws.com/'
 
