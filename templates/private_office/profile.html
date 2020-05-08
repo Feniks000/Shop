@@ -2,10 +2,13 @@
 {% block title %}Личный кабинет{% endblock %}
 
 {% block content %}
-    <h1>Мой профиль</h1>
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% else %}
+        <h1>Мой профиль</h1>
 
-    Имя пользователя: {{ user.username }} <br>
-    Email: {{ user.email }} <br>
-    Подтвержденный: {{ user.profile.confirmed }}
-
+        Имя пользователя: {{ user.username }} <br>
+        Email: {{ user.email }} <br>
+        Подтвержденный: {{ user.profile.confirmed }}
+    {% endif %}
 {% endblock %}

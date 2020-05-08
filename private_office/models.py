@@ -9,9 +9,11 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    firstname = models.CharField(max_length=200)
+    lastname = models.CharField(max_length=200)
+    fathersname = models.CharField(max_length=200)
+    address = models.CharField(max_length=500)
+
     confirmed = models.BooleanField(default=False)
 
 
@@ -27,5 +29,10 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class EmailConfirmation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    personal_link = models.CharField(max_length=33, primary_key=True)
+
+
+class PasswordResetKeys(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     personal_link = models.CharField(max_length=33, primary_key=True)

@@ -23,7 +23,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'starshop25.herokuapp.com',
 ]
-VALIDATION_LINK = 'https://starshop25.herokuapp.com/accounts/validation'
+VALIDATION_LINK = 'https://starshop25.herokuapp.com/accounts/validation/'
+RESETPASSWORD_LINK = 'https://starshop25.herokuapp.com/accounts/resetpassword/accept/'
 # Application definition
 
 INSTALLED_APPS = [
