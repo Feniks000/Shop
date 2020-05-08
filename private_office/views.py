@@ -72,11 +72,14 @@ def registration(request):
 def validation(request, key, email):
     user = get_object_or_404(User,
                              username=get_object_or_404(EmailConfirmation, personal_link=key).user)
-
     if user.email == email:
-        return HttpResponse("Успех.")
+        user.profile.confirmed = True
+        user.emailconfirmation.delete()
+
+        user.save()
+        return render(request, 'private_office/confirmation_page.html')
     else:
-        return HttpResponse("Провал")
+        raise Http404()
 
 
 @csrf_exempt
