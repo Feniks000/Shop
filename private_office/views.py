@@ -63,8 +63,8 @@ def registration(request):
         password2 = request.POST.get('password2')
         if User.objects.filter(username=username).exists():
             context['error'] = 'Такое имя пользователя уже есть, пожалуйста, выберите другое.'
-        elif (' ', '\t', '\n') in username:
-            context['error'] = 'Такое имя пользователя недопустимо, пожалуйста, выберите другое.'
+        # elif (' ', '\t', '\n') in username:
+        #     context['error'] = 'Такое имя пользователя недопустимо, пожалуйста, выберите другое.'
         else:
             if password == password2:
                 User.objects.create_user(username, email, password)
