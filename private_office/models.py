@@ -9,10 +9,10 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    firstname = models.CharField(max_length=200)
-    lastname = models.CharField(max_length=200)
-    fathersname = models.CharField(max_length=200)
-    address = models.CharField(max_length=500)
+    firstname = models.CharField(max_length=200, default='')
+    lastname = models.CharField(max_length=200, default='')
+    fathersname = models.CharField(max_length=200, default='')
+    address = models.CharField(max_length=500, default='')
 
     confirmed = models.BooleanField(default=False)
 
