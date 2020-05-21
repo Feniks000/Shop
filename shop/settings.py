@@ -15,15 +15,16 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'j)ua8xprpk@%rhi_@_n*5b^blj_c353*i=k#fm6xh)hy%&ap5u'
+SECRET_KEY = os.environ.get('SECRET_DJANGO_KEY')
 
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'starshop25.herokuapp.com',
 ]
-
+VALIDATION_LINK = 'https://starshop25.herokuapp.com/accounts/validation/'
+RESETPASSWORD_LINK = 'https://starshop25.herokuapp.com/accounts/resetpassword/accept/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,19 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shop.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbcqnbc4vcq78r',
-        'USER': 'kgvbecpbwvbcjl',
-        'PASSWORD': '95f5802188968b0e3b6bf69b6c633c7b6b6a20ef3b18c60cf7a5a31b02ab4995',
-        'HOST': 'ec2-54-247-118-139.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
 
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -101,8 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Asia/Vladivostok'
 
@@ -112,9 +110,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-AWS_ACCESS_KEY_ID = 'AKIAUQJGDX7YJXFBSUZM'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'starshop25'
 AWS_URL = 'https://starshop25.s3.eu-north-1.amazonaws.com/'
 
@@ -132,7 +129,6 @@ AWS_DEFAULT_ACL = None
 
 STATICFILES_STORAGE = 'shop.storage_backends.StaticStorage'
 DEFAULT_FILE_STORAGE = 'shop.storage_backends.MediaStorage'
-
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -155,3 +151,16 @@ if DEBUG:
             },
         },
     }
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.starshop25@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 465  # 465 587
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+SECRET_YA_KEY = os.environ.get('SECRET_YA_KEY')

@@ -9,7 +9,7 @@
     <div class = "product">
         <a href = "{{ star.id }}">
             <h2>{{ star.name }}</h2>
-            <img src = "{% static star.img %}" alt = "">
+            <img src = "https://starshop25.s3.amazonaws.com/media/{{ star.img }}" alt = "">
             <p>Цена: {{ star.cost }}&#8381;</p>
             <p>Тип: {{ star.stype }}</p>
             <p>Позиция: {{ star.spos }}</p>

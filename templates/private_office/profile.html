@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% else %}
+        <div class = "form">
+            <h1>Мой профиль</h1>
+            Имя: {{ user.profile.firstname }} <br>
+            Фамилия: {{ user.profile.lastname }} <br>
+            Отчество: {{ user.profile.fathersname }} <br><br>
+            Логин: {{ user.username }} <br>
+            Email: {{ user.email }} <br>
+            Подтвержденный: {{ user.profile.confirmed }}
+        </div>
+
+        <div class = "form">
+            <h1>Мои заказы:</h1>
+            {% for i, order in orders %}
+                {% if i == 0 %}
+                    <div class = "row">
+                {% endif %}
+            <div class = "product">
+                <h2>Заказ №{{ order.id }}</h2>
+                <p>Товар: {{ order.star_name }}</p>
+                <p>Сумма: {{ order.withdraw_amount }}</p>
+                <p>Время совершения заказа {{ order.datetime }}</p>
+                <h3>Адресс доставки:</h3>
+                <p>Город {{ order.city }}</p>
+                <p>Улица {{ order.street }}</p>
+                <p>Здание {{ order.building }}</p>
+                <p>Квартира {{ order.flat }}</p>
+                <p>Индекс {{ order.zip }}</p>
+            </div>
+
+            {% if i == 1 %}
+                </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}
